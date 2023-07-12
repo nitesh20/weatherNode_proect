@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.1/css/all.min.css" 
+            integrity="sha512-9my9Mb2+0YO+I4PUCSwUYO7sEK21Y0STBAiFEYoWtd2VzLEZZ4QARDrZ30hdM1GlioHJ8o8cWQiy8IAb1hy/Hg==" 
+            crossorigin="anonymous" referrerpolicy="no-referrer" />
+            
+        <title>Weather Report</title>
+        <link rel="sttlesheet" href="style.css" />
+    </head>
+    <body>
+        <section class="vh-100" style="background-color: #C1CFEA;">
+  <div class="container py-5 h-100">
+
+    <div class="row d-flex justify-content-center align-items-center h-100" style="color: #282828;">
+      <div class="col-md-9 col-lg-7 col-xl-5">
+
+        <div class="card mb-4 gradient-custom" style="border-radius: 25px;">
+          <div class="card-body p-4">
+
+            <div id="demo1" class="carousel slide" data-ride="carousel">
+              <!-- Indicators -->
+           
+              <!-- Carousel inner -->
+              <div class="carousel-inner">
+                <div class="carousel-item active">
+                  <div class="d-flex justify-content-between mb-4 pb-2">
+                    <div>
+                      <h2 class="display-2"><strong>{%tempval%}&deg;C</strong></h2>
+                      <p class="text-muted mb-0"><i class="fas fa-street-view" style="margin-right:6px;"></i>{%location%}, {%country%}</p>
+                    </div>
+                    <div id="icon">
+                      <!--<img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-weather/ilu3.webp"
+                        width="150px"> -->
+                         <i class="fas fa-sun fa-2x mb-3" style="color: #ddd;"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="card mb-4" style="border-radius: 25px;">
+          <div class="card-body p-4">
+
+            <div id="demo2" class="carousel slide" data-ride="carousel">
+              <!-- Indicators -->
+              
+              <!-- Carousel inner -->
+              <div class="carousel-inner">
+                <div class="carousel-item active">
+                  <div class="d-flex justify-content-around text-center mb-4 pb-3 pt-2">
+                    <div class="flex-column">
+                      <!--<p class="small"><strong>21°C</strong></p>
+                      <i class="fas fa-sun fa-2x mb-3" style="color: #ddd;"></i>
+                      <p class="mb-0"><strong>12:00</strong></p>
+                      <p class="mb-0 text-muted" style="font-size: .65rem;">PM</p> -->
+                       <!--<h2 class="location"><i class="fas fa-street-view mr-3"></i>{%location%}, {%country%}</h2>-->
+                        <p id ="date">WED | OCT 23 | 10:43AM</p>
+                        <h3 class="tempmin_max">Min {%tempmin%}&deg;C | Max {%tempmax%}&deg;C</h3>
+                    </div>
+                   
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+  <script>
+            const dateinfo = document.getElementById('date');
+            const icon = document.getElementById('icon');
+
+            const tempstatus = "{%tempstatus%}";
+
+            if(tempstatus == "Sunny")
+            {
+              icon.innerHTML = "<i class='fas fa-sun fa-5x mt-4' style='color: #eccc68;'></i>";
+            }
+            else if(tempstatus == "Clouds")
+            {
+              icon.innerHTML = "<i class='fas fa-cloud fa-5x mt-4' style='color: #f1f2f6;'></i>";
+            }
+            else if (tempstatus == "Rainy")
+            {
+              icon.innerHTML = "<i class='fas fa-cloud-rain fa-5x mt-4' style='color: #a4b0be;'></i>";
+            }
+            else if (tempstatus == "Haze")
+            {
+              icon.innerHTML = "<i class='fas fa-cloud-sun-rain fa-5x mt-4' style='color: #44c3de;'></i>";
+            }
+            else{
+              icon.innerHTML = "<i class='fas fa-cloud fa-5x mt-4' style='color: #44c3de;'></i>";
+            }
+            const d = new Date();
+
+            const getdays = () => {
+              const days = ['Sun','Mon','Tue','Wed','Thus','Fri','Sat'];
+              var day = days[d.getDay()];
+              return day;
+            }
+
+            const getdateinfo = () => {
+              const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+              var month = months[d.getMonth()];
+              
+
+                var dates = d.getDate();
+                var hrs  = d.getHours();
+                var mins = d.getMinutes();
+                var year = d.getFullYear();
+
+                var periods = 'AM';
+
+                if(hrs > 11)
+                {
+                    periods = 'PM';
+
+                    if(hrs > 12)
+                    {
+                      hrs -= 12;
+                    }
+                }
+
+                if(mins < 10)
+                {
+                  mins = "0" + mins;
+                }
+
+            return `${month} ${dates} | ${hrs}:${mins} ${periods}`;
+            }
+
+           dateinfo.innerHTML = getdays() + ' | ' + getdateinfo();
+  </script>
+
+
+    </body>
+</html>
